@@ -1,0 +1,29 @@
+﻿Build started 04/08/2013 15:22:26.
+     1>Project "C:\Users\Steve\documents\visual studio 2010\Projects\projectShades\projectShades\projectShades.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\projectShades.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\openCv246\build\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades\projectshades\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades\projectshades\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Steve\documents\visual studio 2010\Projects\projectShades\Release\projectShades.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\openCv246\build\x86\vc10\lib opencv_core246.lib opencv_imgproc246.lib opencv_highgui246.lib opencv_ml246.lib opencv_video246.lib opencv_features2d246.lib opencv_calib3d246.lib opencv_objdetect246.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\projectShades.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Steve\documents\visual studio 2010\Projects\projectShades\Release\projectShades.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Steve\documents\visual studio 2010\Projects\projectShades\Release\projectShades.lib" /MACHINE:X86 Release\facialAnalysis.obj
+         Release\findEyeCenter.obj
+         Release\helpers.obj
+         Release\main.obj
+         Release\superImpose.obj
+         Release\xmlDocument.obj
+         Generating code
+         Finished generating code
+         projectShades.vcxproj -> C:\Users\Steve\documents\visual studio 2010\Projects\projectShades\Release\projectShades.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Steve\documents\visual studio 2010\Projects\projectShades\Release\projectShades.exe;#1" /manifest Release\projectShades.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release\projectShades.unsuccessfulbuild".
+         Touching "Release\projectShades.lastbuildstate".
+     1>Done Building Project "C:\Users\Steve\documents\visual studio 2010\Projects\projectShades\projectShades\projectShades.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.33
