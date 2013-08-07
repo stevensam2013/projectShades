@@ -13,7 +13,8 @@ using namespace cv;
 class facialAnalysis
 {
 private:
-
+	//
+	String m_faceCascadeName;
 	//The input image
 	Mat m_inputImage;
 	Mat m_processedImage;
@@ -27,7 +28,7 @@ private:
 	int m_interPupillaryDistance;
 
 public:
-	facialAnalysis(Mat inputImage);
+	facialAnalysis(Mat inputImage, string directory);
 	~facialAnalysis(void);
 	int detectFace();
 	void findPupils();

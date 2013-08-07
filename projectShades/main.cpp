@@ -23,6 +23,17 @@ int main(int argc,char *argv[])
 
 	ostringstream stringStream;
 
+	string exeDir;
+	exeDir = argv[0];
+		
+	exeDir = exeDir.substr(0, exeDir.find_last_of("\\/")+1);
+	
+	if( exeDir.find_last_of("\\/") == exeDir.npos)
+	{
+		exeDir = "";
+	}
+
+
 	if(argc != 3)
 	{
 		cout << "This program requires the specs image and the captured image prefix!\n\nDebug Mode\n\n";
@@ -32,8 +43,11 @@ int main(int argc,char *argv[])
 	
 	if(argc != 3)
 	{
-		filename = "face2";
-		specsFilename = "specs1";
+		filename = exeDir + "face";
+		specsFilename = exeDir + "specs1";
+
+		cout << filename << endl;
+		cout << specsFilename << endl;
 		//return -1;
 	}
 	else
@@ -70,7 +84,8 @@ int main(int argc,char *argv[])
     }
 
 	//Analyse image and determine facial characteristics
-	facialAnalysis myFacialAnalysis(inputImage);
+	facialAnalysis myFacialAnalysis(inputImage, exeDir);
+
 
 	//Add content to XML
 	stringStream << myFacialAnalysis.getPupillaryDistance();
@@ -92,9 +107,11 @@ int main(int argc,char *argv[])
 	circle(debugImage, myFacialAnalysis.getRightPupil(), 3, 9999);
 	line(debugImage, myFacialAnalysis.getLeftPupil(), myFacialAnalysis.getRightPupil(), 9999,1);
 	
+	
 	debugFilename = imgName + "_debug.jpg";
 	imwrite( debugFilename, debugImage );
 
+	/*
     namedWindow( "Debug window", CV_WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Debug window", debugImage );                   // Show our image inside it.
 	
@@ -102,5 +119,6 @@ int main(int argc,char *argv[])
     imshow( "Processed window", specsImage );                   // Show our image inside it.
 
     waitKey(0);                                          // Wait for a keystroke in the window
+	*/
     return 0;
 }

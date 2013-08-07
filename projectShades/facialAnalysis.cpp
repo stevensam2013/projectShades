@@ -2,15 +2,18 @@
 #include <math.h>
 
 
-facialAnalysis::facialAnalysis(Mat inputImage)
+facialAnalysis::facialAnalysis(Mat inputImage, String directory)
 {
 	//Set the member matrix to the input image
 	m_inputImage = inputImage;
+	m_faceCascadeName = directory + "haarcascade_frontalface_alt.xml";
 
 	if(detectFace())
 	{
 		findPupils();
 	}
+
+	
 }
 
 
@@ -23,11 +26,10 @@ int facialAnalysis::detectFace()
 	vector<Rect> faces;
 	vector<cv::Mat> rgbChannels(3);
 	Mat processedImage;
-	String face_cascade_name = "haarcascade_frontalface_alt.xml";
 	CascadeClassifier face_cascade;
 
 	//Load the cascade for face detection
-	if( !face_cascade.load( face_cascade_name ) )
+	if( !face_cascade.load( m_faceCascadeName ) )
 	{
 		printf("Error loading cascade\n");
 	};
