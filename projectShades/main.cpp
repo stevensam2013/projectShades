@@ -21,6 +21,7 @@ int main(int argc,char *argv[])
 	xmlDocument outputXml;
 	ofstream xmlFile;
 
+
 	ostringstream stringStream;
 
 	string exeDir;
@@ -44,7 +45,7 @@ int main(int argc,char *argv[])
 	if(argc != 3)
 	{
 		filename = exeDir + "face";
-		specsFilename = exeDir + "specs1";
+		specsFilename = exeDir + "specs2";
 
 		cout << filename << endl;
 		cout << specsFilename << endl;
@@ -99,7 +100,8 @@ int main(int argc,char *argv[])
 
 	//superimpose specs on face
 	processedFilename = imgName + "_processed.jpg";
-	imwrite( processedFilename, specsImage );
+	myFacialAnalysis.addGlasses(specsImage);
+	imwrite( processedFilename, myFacialAnalysis.getProcessedImage());
 
 	//Debug image
 	debugImage = inputImage;

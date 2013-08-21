@@ -4,13 +4,17 @@
 
 facialAnalysis::facialAnalysis(Mat inputImage, String directory)
 {
+	m_faceDetected = false;
+
 	//Set the member matrix to the input image
 	m_inputImage = inputImage;
 	m_faceCascadeName = directory + "haarcascade_frontalface_alt.xml";
 
 	if(detectFace())
 	{
+		m_faceDetected = true;
 		findPupils();
+		measureNoseBridge();
 	}
 
 	
@@ -105,4 +109,110 @@ Point facialAnalysis::getRightPupil()
 int facialAnalysis::getPupillaryDistance()
 {
 	return m_interPupillaryDistance;
+}
+
+Mat facialAnalysis::getProcessedImage()
+{
+	return m_processedImage;
+}
+
+void facialAnalysis::addGlasses(Mat specsImage)
+{
+	int left = 9999, right = -1, top = 9999, bottom = -1;
+	Mat greySpecs;
+	Scalar colour;
+	Vec3b pixel;
+	Mat croppedSpecs;
+	Point specsCentre, specsTopLeft;
+
+	//If no face was detected, then exit this function.
+	if (!m_faceDetected)
+	{
+		return;
+	}
+
+	//Get the ROI of the specs image
+	cvtColor(specsImage, greySpecs, CV_BGR2GRAY);
+
+	//Iterate through the pixels and set the extreme values of the frames within the image.
+	for(int y = 0; y < greySpecs.rows; y++)
+	{
+		for(int x = 0; x < greySpecs.cols; x++)
+		{
+			colour = greySpecs.at<uchar>(Point(x, y));
+			if(colour.val[0] < 240)
+			{
+				if(x < left)
+				{left = x;}
+
+				if(x > right)
+				{right = x;}
+
+				if(y < top)
+				{top = y;}
+
+				if(y > bottom)
+				{bottom = y;}
+			}
+		}
+	}
+
+	//Crop the Specs
+	Rect specsRect(Point(left,top), Point(right, bottom));
+	croppedSpecs = specsImage(specsRect).clone();
+
+	//Resize the specs
+	resize(croppedSpecs, croppedSpecs, Size(0,0), double(2.2*getPupillaryDistance())/croppedSpecs.cols, double(2.2*getPupillaryDistance())/croppedSpecs.cols); 
+
+	//Rotate the glasses
+	//Rotate the image of the glasses so they match the line between the pupils.
+
+	//Merge the images
+	specsCentre = Point(((m_leftPupilPosition.x - m_rightPupilPosition.x)/2) + m_rightPupilPosition.x, ((m_leftPupilPosition.y - m_rightPupilPosition.y)/2) + m_rightPupilPosition.y);
+	specsTopLeft.x = specsCentre.x - (croppedSpecs.cols/2);
+	specsTopLeft.y = specsCentre.y - (croppedSpecs.rows/2);
+
+	cvtColor(croppedSpecs, greySpecs, CV_BGR2GRAY);
+	m_inputImage.copyTo(m_processedImage);
+
+	for(int y = 0; y < croppedSpecs.rows; y++)
+	{
+		for(int x = 0; x < croppedSpecs.cols; x++)
+		{
+			colour = greySpecs.at<uchar>(Point(x, y));
+			if(colour.val[0] < 150 && specsTopLeft.x+x < m_processedImage.cols)
+			{
+				m_processedImage.at<Vec3b>(Point(specsTopLeft.x + x, specsTopLeft.y + y)) = croppedSpecs.at<Vec3b>(Point(x, y));
+			}
+			
+		}
+	}
+
+	//Show the image for debug
+	//namedWindow( "Superimpose window", CV_WINDOW_AUTOSIZE );// Create a window for display.
+    //imshow( "Superimpose window", m_processedImage );                   // Show our image inside it.
+
+	//waitKey(0); 
+}
+
+void facialAnalysis::measureNoseBridge()
+{
+	Mat noseBridgeArea;
+	int left, right, top, bottom;
+
+	left = m_leftPupilPosition.x - 10;
+	top = m_leftPupilPosition.y - 10;
+	right = m_rightPupilPosition.x + 10;
+	bottom = m_rightPupilPosition.y + 10;
+
+	//Crop the bridge area
+	Rect noseBridgeRect(Point(left,top), Point(right, bottom));
+	noseBridgeArea = m_inputImage(noseBridgeRect).clone();
+	resize(noseBridgeArea, noseBridgeArea, Size(0,0), 20, 20);
+
+	//Show the image for debug
+	namedWindow( "Nose Bridge window", CV_WINDOW_AUTOSIZE );// Create a window for display.
+    imshow( "Nose Bridge window", noseBridgeArea );                   // Show our image inside it.
+
+	waitKey(0); 
 }

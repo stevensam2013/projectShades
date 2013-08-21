@@ -2,6 +2,7 @@
 
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/objdetect/objdetect.hpp"
+#include "opencv2/highgui/highgui.hpp"
 #include <stdio.h>
 
 #include "findEyeCenter.h"
@@ -21,11 +22,15 @@ private:
 
 	//The area containing the face
 	Rect m_face;
+	bool m_faceDetected;
 
 	//Pupil related data
 	Point m_leftPupilPosition;
 	Point m_rightPupilPosition;
 	int m_interPupillaryDistance;
+
+	//Bridge of the nose measurement
+	int m_noseBridgeMesure;
 
 public:
 	facialAnalysis(Mat inputImage, string directory);
@@ -35,6 +40,11 @@ public:
 	Point getLeftPupil();
 	Point getRightPupil();
 	int getPupillaryDistance();
+	void addGlasses(Mat specsImage);
+	Mat getProcessedImage();
+
+	void measureNoseBridge();
+
 
 };
 
