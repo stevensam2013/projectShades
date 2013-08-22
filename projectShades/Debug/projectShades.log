@@ -1,16 +1,22 @@
-﻿Build started 07/08/2013 19:07:40.
-     1>Project "C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades\projectShades\projectShades.vcxproj" on node 2 (build target(s)).
+﻿Build started 21/08/2013 17:31:13.
+     1>Project "C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades_new\projectShades\projectShades.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\projectShades.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\openCv246\build\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-         main.cpp
-     1>c:\users\steve\documents\visual studio 2010\projects\projectshades\projectshades\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\steve\documents\visual studio 2010\projects\projectshades\projectshades\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\openCv246\build\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt facialAnalysis.cpp
+         facialAnalysis.cpp
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades_new\projectshades\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades_new\projectshades\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades_new\projectshades\facialanalysis.cpp(74): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades_new\projectshades\facialanalysis.cpp(75): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades_new\projectshades\facialanalysis.cpp(76): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades_new\projectshades\facialanalysis.cpp(78): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades_new\projectshades\facialanalysis.cpp(80): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steve\documents\visual studio 2010\projects\projectshades_new\projectshades\facialanalysis.cpp(234): warning C4244: '=' : conversion from 'double' to 'uchar', possible loss of data
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades\Debug\projectShades.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\openCv246\build\x86\vc10\lib opencv_core246d.lib opencv_imgproc246d.lib opencv_highgui246d.lib opencv_ml246d.lib opencv_video246d.lib opencv_features2d246d.lib opencv_calib3d246d.lib opencv_objdetect246d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\projectShades.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades\Debug\projectShades.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades\Debug\projectShades.lib" /MACHINE:X86 Debug\projectShades.exe.embed.manifest.res
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades_new\Debug\projectShades.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\openCv246\build\x86\vc10\lib opencv_core246d.lib opencv_imgproc246d.lib opencv_highgui246d.lib opencv_ml246d.lib opencv_video246d.lib opencv_features2d246d.lib opencv_calib3d246d.lib opencv_objdetect246d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\projectShades.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades_new\Debug\projectShades.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades_new\Debug\projectShades.lib" /MACHINE:X86 Debug\projectShades.exe.embed.manifest.res
          Debug\facialAnalysis.obj
          Debug\findEyeCenter.obj
          Debug\helpers.obj
@@ -22,12 +28,12 @@
          All outputs are up-to-date.
        LinkEmbedManifest:
          All outputs are up-to-date.
-         projectShades.vcxproj -> C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades\Debug\projectShades.exe
+         projectShades.vcxproj -> C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades_new\Debug\projectShades.exe
        FinalizeBuildStatus:
          Deleting file "Debug\projectShades.unsuccessfulbuild".
          Touching "Debug\projectShades.lastbuildstate".
-     1>Done Building Project "C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades\projectShades\projectShades.vcxproj" (build target(s)).
+     1>Done Building Project "C:\Users\Steve\Documents\Visual Studio 2010\Projects\projectShades_new\projectShades\projectShades.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.01
+Time Elapsed 00:00:02.33
