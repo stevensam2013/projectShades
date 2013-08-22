@@ -45,7 +45,7 @@ int main(int argc,char *argv[])
 	if(argc != 3)
 	{
 		filename = exeDir + "face";
-		specsFilename = exeDir + "specs2";
+		specsFilename = exeDir + "specs1";
 
 		cout << filename << endl;
 		cout << specsFilename << endl;
@@ -108,6 +108,7 @@ int main(int argc,char *argv[])
 	circle(debugImage, myFacialAnalysis.getLeftPupil(), 3, 9999);
 	circle(debugImage, myFacialAnalysis.getRightPupil(), 3, 9999);
 	line(debugImage, myFacialAnalysis.getLeftPupil(), myFacialAnalysis.getRightPupil(), 9999,1);
+	rectangle(debugImage, Point(), Point(), 555);
 	
 	
 	debugFilename = imgName + "_debug.jpg";

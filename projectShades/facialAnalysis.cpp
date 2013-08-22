@@ -197,22 +197,73 @@ void facialAnalysis::addGlasses(Mat specsImage)
 
 void facialAnalysis::measureNoseBridge()
 {
-	Mat noseBridgeArea;
-	int left, right, top, bottom;
+	Mat noseBridgeArea, tempInputImage;
+	int left, right, top, bottom, width, height;
+	Point noseCentre;
+	Scalar colour;
+	Vec3b pixel;
+	vector<Mat> rgbChannels(3);
 
-	left = m_leftPupilPosition.x - 10;
-	top = m_leftPupilPosition.y - 10;
-	right = m_rightPupilPosition.x + 10;
-	bottom = m_rightPupilPosition.y + 10;
+	noseCentre = Point(((m_leftPupilPosition.x - m_rightPupilPosition.x)/2) + m_rightPupilPosition.x, ((m_leftPupilPosition.y - m_rightPupilPosition.y)/2) + m_rightPupilPosition.y);
+
+	left = m_leftPupilPosition.x;
+	top = m_leftPupilPosition.y - 2;
+	right = m_rightPupilPosition.x;
+	bottom = m_rightPupilPosition.y + 60;
+	width = right - left;
+	height = bottom - top;
+
 
 	//Crop the bridge area
 	Rect noseBridgeRect(Point(left,top), Point(right, bottom));
 	noseBridgeArea = m_inputImage(noseBridgeRect).clone();
-	resize(noseBridgeArea, noseBridgeArea, Size(0,0), 20, 20);
+	//resize(noseBridgeArea, noseBridgeArea, Size(0,0), 10, 10);
+	//line(noseBridgeArea, Point(noseBridgeArea.cols/2, 0), Point(noseBridgeArea.cols/2, noseBridgeArea.rows), 555);  
+
+	//Canny(noseBridgeArea, noseBridgeArea, 1, 200);
+	noseBridgeArea.copyTo(tempInputImage);
+
+	split(noseBridgeArea, rgbChannels);
+
+	rgbChannels[1].copyTo(tempInputImage);
+
+	/*
+	cvtColor(noseBridgeArea, noseBridgeArea, CV_BGR2GRAY);
+	cvtColor(tempInputImage, tempInputImage, CV_BGR2GRAY);
+	//Iterate through the pixels and set the extreme values of the frames within the image.
+	
+	for(int y = 0; y < noseBridgeArea.rows; y++)
+	{
+		for(int x = 1; x < noseBridgeArea.cols; x++)
+		{
+			//colour = noseBridgeArea.at<uchar>(Point(x, y));
+			colour = 10*abs(noseBridgeArea.at<uchar>(Point(x-1, y)) - noseBridgeArea.at<uchar>(Point(x, y)));
+
+			tempInputImage.at<uchar>(Point(x,y)) = colour.val[0];
+		}
+	}
+	
+	GaussianBlur(noseBridgeArea, noseBridgeArea, Size(3,3), 0);
+
+	Scharr(noseBridgeArea, tempInputImage, CV_8U, 0, 1);
+
+	*/
+
+	resize(noseBridgeArea, noseBridgeArea, Size(0,0), 10, 10);
+	resize(tempInputImage, tempInputImage, Size(0,0), 10, 10);
 
 	//Show the image for debug
-	namedWindow( "Nose Bridge window", CV_WINDOW_AUTOSIZE );// Create a window for display.
-    imshow( "Nose Bridge window", noseBridgeArea );                   // Show our image inside it.
+	//namedWindow( "Nose Bridge window1", CV_WINDOW_AUTOSIZE );// Create a window for display.
+    //imshow( "Nose Bridge window1", noseBridgeArea );  
 
-	waitKey(0); 
+	//Show the image for debug
+	//namedWindow( "Nose Bridge window", CV_WINDOW_AUTOSIZE );// Create a window for display.
+    //imshow( "Nose Bridge window", tempInputImage );                   // Show our image inside it.
+
+	//waitKey(0); 
+}
+
+void facialAnalysis::measureFace()
+{
+	
 }

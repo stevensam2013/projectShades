@@ -23,14 +23,21 @@ private:
 	//The area containing the face
 	Rect m_face;
 	bool m_faceDetected;
+	int m_faceHeight;
+	int m_faceWidth;
 
 	//Pupil related data
 	Point m_leftPupilPosition;
 	Point m_rightPupilPosition;
 	int m_interPupillaryDistance;
 
-	//Bridge of the nose measurement
-	int m_noseBridgeMesure;
+	//Nose measurementa
+	int m_noseBridgeMeasure;
+	int m_noseBaseMeasure;
+	int m_noseLength;
+
+	//Distance between earlobe and eye socket.
+	int m_earToEyeMeasure;
 
 public:
 	facialAnalysis(Mat inputImage, string directory);
@@ -44,7 +51,7 @@ public:
 	Mat getProcessedImage();
 
 	void measureNoseBridge();
-
+	void measureFace();
 
 };
 
