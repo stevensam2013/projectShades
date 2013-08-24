@@ -14,7 +14,10 @@ using namespace cv;
 class facialAnalysis
 {
 private:
-	//
+	//Flags
+	bool m_drawGlasses;
+
+	String m_status;
 	String m_faceCascadeName;
 	//The input image
 	Mat m_inputImage;
@@ -24,7 +27,11 @@ private:
 	Rect m_face;
 	bool m_faceDetected;
 	int m_faceHeight;
+	int m_faceTop;
+	int m_faceBottom;
 	int m_faceWidth;
+	int m_faceLeft;
+	int m_faceRight;
 
 	//Pupil related data
 	Point m_leftPupilPosition;
@@ -47,11 +54,22 @@ public:
 	Point getLeftPupil();
 	Point getRightPupil();
 	int getPupillaryDistance();
+	int getFaceTop();
+	int getFaceBottom();
+	int getFaceLeft();
+	int getFaceRight();
+	int getFaceWidth();
+	bool drawGlasses();
 	void addGlasses(Mat specsImage);
 	Mat getProcessedImage();
-
+	String getStatus();
 	void measureNoseBridge();
 	void measureFace();
-
+	void skinFilter(Mat inputImage, Mat outputImage);
+	int findFaceLeft();
+	int findFaceTop();
+	int findFaceBottom();
+	int findFaceRight();
+	Mat cannyEdgeDetector(Mat inputImage);
 };
 

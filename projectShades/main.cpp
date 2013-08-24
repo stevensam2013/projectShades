@@ -12,15 +12,12 @@
 using namespace std;
 using namespace cv;
 
-
-
 int main(int argc,char *argv[])
 {
 	string filename, imgName, processedFilename, debugFilename, specsFilename, xmlFilename;
 	Mat inputImage, debugImage, specsImage;
 	xmlDocument outputXml;
 	ofstream xmlFile;
-
 
 	ostringstream stringStream;
 
@@ -44,7 +41,7 @@ int main(int argc,char *argv[])
 	
 	if(argc != 3)
 	{
-		filename = exeDir + "face";
+		filename = exeDir + "face9";
 		specsFilename = exeDir + "specs1";
 
 		cout << filename << endl;
@@ -91,6 +88,15 @@ int main(int argc,char *argv[])
 	//Add content to XML
 	stringStream << myFacialAnalysis.getPupillaryDistance();
 	outputXml.addElement("interPupilaryDistance", stringStream.str());
+	outputXml.addElement("faceHeight", "0");
+	stringStream.str("");
+	stringStream << myFacialAnalysis.getFaceWidth();
+	outputXml.addElement("faceWidth", stringStream.str());
+	outputXml.addElement("noseBridge", "0");
+	outputXml.addElement("noseBase", "0");
+	outputXml.addElement("noseHeight", "0");
+	outputXml.addElement("earToEye", "0");
+	outputXml.addElement("status", myFacialAnalysis.getStatus());
 
 	//Write XML file
 	xmlFilename = imgName + ".xml";
@@ -100,7 +106,10 @@ int main(int argc,char *argv[])
 
 	//superimpose specs on face
 	processedFilename = imgName + "_processed.jpg";
-	myFacialAnalysis.addGlasses(specsImage);
+	if (myFacialAnalysis.drawGlasses() == true)
+	{
+		myFacialAnalysis.addGlasses(specsImage);
+	}
 	imwrite( processedFilename, myFacialAnalysis.getProcessedImage());
 
 	//Debug image
@@ -108,6 +117,11 @@ int main(int argc,char *argv[])
 	circle(debugImage, myFacialAnalysis.getLeftPupil(), 3, 9999);
 	circle(debugImage, myFacialAnalysis.getRightPupil(), 3, 9999);
 	line(debugImage, myFacialAnalysis.getLeftPupil(), myFacialAnalysis.getRightPupil(), 9999,1);
+	//line(debugImage, Point(myFacialAnalysis.getLeftPupil().x, myFacialAnalysis.getFaceTop()), Point(myFacialAnalysis.getRightPupil().x, myFacialAnalysis.getFaceTop()), 555);
+	line(debugImage, Point(myFacialAnalysis.getFaceLeft(), myFacialAnalysis.getLeftPupil().y), Point(myFacialAnalysis.getFaceLeft(), myFacialAnalysis.getLeftPupil().y-(myFacialAnalysis.getPupillaryDistance()/4)), 555);
+	line(debugImage, Point(myFacialAnalysis.getFaceRight(), myFacialAnalysis.getRightPupil().y), Point(myFacialAnalysis.getFaceRight(), myFacialAnalysis.getRightPupil().y-(myFacialAnalysis.getPupillaryDistance()/4)), 555);
+	line(debugImage, Point(myFacialAnalysis.getLeftPupil().x, myFacialAnalysis.getFaceBottom()), Point(myFacialAnalysis.getRightPupil().x, myFacialAnalysis.getFaceBottom()), 555);
+
 	rectangle(debugImage, Point(), Point(), 555);
 	
 	
@@ -116,12 +130,13 @@ int main(int argc,char *argv[])
 
 	/*
     namedWindow( "Debug window", CV_WINDOW_AUTOSIZE );// Create a window for display.
-    imshow( "Debug window", debugImage );                   // Show our image inside it.
+    imshow( "Debug window", myFacialAnalysis.getProcessedImage() );                   // Show our image inside it.
 	
 	namedWindow( "Processed window", CV_WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Processed window", specsImage );                   // Show our image inside it.
-
+	
     waitKey(0);                                          // Wait for a keystroke in the window
 	*/
+
     return 0;
 }
